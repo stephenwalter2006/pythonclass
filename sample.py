@@ -1,9 +1,27 @@
-def problemOne(count):
-    sum = 0
-    for x in range(count):
-        if(x%3 == 0 or x%5 == 0):
-            sum += x
-    return sum
+def findTotal(count , val):
+	maxVal = 0
+	if count%val == 0 :
+		maxVal = count - val
+	else:
+		maxVal = count - (count%val)
 
+	endVal = maxVal/val
 
-print(problemOne(10))
+	return val * ((endVal*(endVal+1))/2)
+
+def problemOne(count, *args):
+	total = 0
+	argCount = len(args)
+	common = 1
+
+	for x in range(argCount):
+		total += findTotal(count,args[x])
+		common *= args[x]
+
+	if common < count:
+		total -= findTotal(count, common)
+	return total
+		
+				   
+
+print(problemOne(1000, 3 ,5))
